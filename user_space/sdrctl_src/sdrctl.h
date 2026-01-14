@@ -17,6 +17,7 @@
 #include "nl80211.h"
 //#include "ieee80211.h"
 
+
 #define ETH_ALEN 6
 
 /* libnl 1.x compatibility code */
