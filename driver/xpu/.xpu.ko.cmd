@@ -1,0 +1,1 @@
+cmd_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.ko := aarch64-linux-gnu-ld -EL -r  -maarch64linux -T ./scripts/module-common.lds --build-id  -o /home/xiaow/Openwifi/openwifi/driver/xpu/xpu.ko /home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o /home/xiaow/Openwifi/openwifi/driver/xpu/xpu.mod.o ;  true

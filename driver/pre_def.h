@@ -1,0 +1,1 @@
+#define USE_NEW_RX_INTERRUPT 1

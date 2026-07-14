@@ -1,0 +1,1 @@
+cmd_/home/xiaow/Openwifi/openwifi/driver/openofdm_rx/openofdm_rx.ko := aarch64-linux-gnu-ld -EL -r  -maarch64linux -T ./scripts/module-common.lds --build-id  -o /home/xiaow/Openwifi/openwifi/driver/openofdm_rx/openofdm_rx.ko /home/xiaow/Openwifi/openwifi/driver/openofdm_rx/openofdm_rx.o /home/xiaow/Openwifi/openwifi/driver/openofdm_rx/openofdm_rx.mod.o ;  true

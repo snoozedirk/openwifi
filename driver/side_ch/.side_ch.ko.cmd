@@ -1,0 +1,1 @@
+cmd_/home/xiaow/Openwifi/openwifi/driver/side_ch/side_ch.ko := aarch64-linux-gnu-ld -EL -r  -maarch64linux -T ./scripts/module-common.lds --build-id  -o /home/xiaow/Openwifi/openwifi/driver/side_ch/side_ch.ko /home/xiaow/Openwifi/openwifi/driver/side_ch/side_ch.o /home/xiaow/Openwifi/openwifi/driver/side_ch/side_ch.mod.o ;  true
