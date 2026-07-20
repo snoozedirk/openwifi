@@ -1,4 +1,4 @@
-cmd_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := aarch64-linux-gnu-gcc -Wp,-MD,/home/xiaow/Openwifi/openwifi/driver/xpu/.xpu.o.d  -nostdinc -isystem /tools/Xilinx/SDK/2018.3/gnu/aarch64/lin/aarch64-linux/bin/../lib/gcc/aarch64-linux-gnu/7.3.1/include -I./arch/arm64/include -I./arch/arm64/include/generated  -I./include -I./arch/arm64/include/uapi -I./arch/arm64/include/generated/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h -D__KERNEL__ -mlittle-endian -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -Werror-implicit-function-declaration -Wno-format-security -std=gnu89 -fno-PIE -mgeneral-regs-only -DCONFIG_AS_LSE=1 -fno-asynchronous-unwind-tables -mpc-relative-literal-loads -mabi=lp64 -fno-delete-null-pointer-checks -Wno-frame-address -Wno-format-truncation -Wno-format-overflow -Wno-int-in-bool-context -O2 --param=allow-store-data-races=0 -DCC_HAVE_ASM_GOTO -Wframe-larger-than=2048 -fno-stack-protector -Wno-unused-but-set-variable -Wno-unused-const-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -fno-var-tracking-assignments -g -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fconserve-stack -Werror=implicit-int -Werror=strict-prototypes -Werror=date-time -Werror=incompatible-pointer-types -Werror=designated-init  -DMODULE -mcmodel=large  -DKBUILD_BASENAME='"xpu"'  -DKBUILD_MODNAME='"xpu"' -c -o /home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o /home/xiaow/Openwifi/openwifi/driver/xpu/xpu.c
+cmd_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := arm-linux-gnueabihf-gcc -Wp,-MD,/home/xiaow/Openwifi/openwifi/driver/xpu/.xpu.o.d  -nostdinc -isystem /tools/Xilinx/SDK/2018.3/gnu/aarch32/lin/gcc-arm-linux-gnueabi/bin/../lib/gcc/arm-linux-gnueabihf/7.3.1/include -I./arch/arm/include -I./arch/arm/include/generated  -I./include -I./arch/arm/include/uapi -I./arch/arm/include/generated/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h -D__KERNEL__ -mlittle-endian -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -Werror-implicit-function-declaration -Wno-format-security -std=gnu89 -fno-PIE -fno-dwarf2-cfi-asm -fno-ipa-sra -mabi=aapcs-linux -mno-thumb-interwork -mfpu=vfp -funwind-tables -marm -D__LINUX_ARM_ARCH__=7 -march=armv7-a -msoft-float -Uarm -fno-delete-null-pointer-checks -Wno-frame-address -Wno-format-truncation -Wno-format-overflow -Wno-int-in-bool-context -O2 --param=allow-store-data-races=0 -DCC_HAVE_ASM_GOTO -Wframe-larger-than=1024 -fno-stack-protector -Wno-unused-but-set-variable -Wno-unused-const-variable -fomit-frame-pointer -fno-var-tracking-assignments -g -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fconserve-stack -Werror=implicit-int -Werror=strict-prototypes -Werror=date-time -Werror=incompatible-pointer-types -Werror=designated-init  -DMODULE  -DKBUILD_BASENAME='"xpu"'  -DKBUILD_MODNAME='"xpu"' -c -o /home/xiaow/Openwifi/openwifi/driver/xpu/.tmp_xpu.o /home/xiaow/Openwifi/openwifi/driver/xpu/xpu.c
 
 source_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := /home/xiaow/Openwifi/openwifi/driver/xpu/xpu.c
 
@@ -7,15 +7,15 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/addr.h) \
     $(wildcard include/config/read.h) \
   include/linux/bitops.h \
-  arch/arm64/include/generated/uapi/asm/types.h \
-  include/uapi/asm-generic/types.h \
+  arch/arm/include/uapi/asm/types.h \
   include/asm-generic/int-ll64.h \
   include/uapi/asm-generic/int-ll64.h \
-  arch/arm64/include/uapi/asm/bitsperlong.h \
+  arch/arm/include/generated/uapi/asm/bitsperlong.h \
   include/asm-generic/bitsperlong.h \
     $(wildcard include/config/64bit.h) \
   include/uapi/asm-generic/bitsperlong.h \
-  arch/arm64/include/asm/bitops.h \
+  arch/arm/include/asm/bitops.h \
+    $(wildcard include/config/smp.h) \
   include/linux/compiler.h \
     $(wildcard include/config/trace/branch/profiling.h) \
     $(wildcard include/config/profile/all/branches.h) \
@@ -32,41 +32,55 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
   include/uapi/linux/posix_types.h \
   include/linux/stddef.h \
   include/uapi/linux/stddef.h \
-  arch/arm64/include/uapi/asm/posix_types.h \
+  arch/arm/include/uapi/asm/posix_types.h \
   include/uapi/asm-generic/posix_types.h \
-  arch/arm64/include/asm/barrier.h \
-  include/asm-generic/barrier.h \
-    $(wildcard include/config/smp.h) \
-  include/asm-generic/bitops/builtin-__ffs.h \
-  include/asm-generic/bitops/builtin-ffs.h \
-  include/asm-generic/bitops/builtin-__fls.h \
-  include/asm-generic/bitops/builtin-fls.h \
-  include/asm-generic/bitops/ffz.h \
-  include/asm-generic/bitops/fls64.h \
-  include/asm-generic/bitops/find.h \
-    $(wildcard include/config/generic/find/first/bit.h) \
-  include/asm-generic/bitops/sched.h \
-  include/asm-generic/bitops/hweight.h \
-  include/asm-generic/bitops/arch_hweight.h \
-  include/asm-generic/bitops/const_hweight.h \
-  include/asm-generic/bitops/lock.h \
-  include/asm-generic/bitops/non-atomic.h \
-  include/asm-generic/bitops/le.h \
-  arch/arm64/include/uapi/asm/byteorder.h \
-  include/linux/byteorder/little_endian.h \
-    $(wildcard include/config/cpu/big/endian.h) \
-  include/uapi/linux/byteorder/little_endian.h \
+  include/linux/irqflags.h \
+    $(wildcard include/config/trace/irqflags.h) \
+    $(wildcard include/config/irqsoff/tracer.h) \
+    $(wildcard include/config/preempt/tracer.h) \
+    $(wildcard include/config/trace/irqflags/support.h) \
+  include/linux/typecheck.h \
+  arch/arm/include/asm/irqflags.h \
+    $(wildcard include/config/cpu/v7m.h) \
+  arch/arm/include/asm/ptrace.h \
+    $(wildcard include/config/arm/thumb.h) \
+    $(wildcard include/config/thumb2/kernel.h) \
+  arch/arm/include/uapi/asm/ptrace.h \
+    $(wildcard include/config/cpu/endian/be8.h) \
+  arch/arm/include/asm/hwcap.h \
+  arch/arm/include/uapi/asm/hwcap.h \
   include/linux/types.h \
     $(wildcard include/config/have/uid16.h) \
     $(wildcard include/config/uid16.h) \
     $(wildcard include/config/lbdaf.h) \
     $(wildcard include/config/arch/dma/addr/t/64bit.h) \
     $(wildcard include/config/phys/addr/t/64bit.h) \
+  include/asm-generic/irqflags.h \
+  arch/arm/include/asm/barrier.h \
+    $(wildcard include/config/cpu/32v6k.h) \
+    $(wildcard include/config/cpu/xsc3.h) \
+    $(wildcard include/config/cpu/fa526.h) \
+    $(wildcard include/config/arm/heavy/mb.h) \
+    $(wildcard include/config/arm/dma/mem/bufferable.h) \
+  include/asm-generic/barrier.h \
+  include/asm-generic/bitops/non-atomic.h \
+  include/asm-generic/bitops/fls64.h \
+  include/asm-generic/bitops/sched.h \
+  include/asm-generic/bitops/hweight.h \
+  include/asm-generic/bitops/arch_hweight.h \
+  include/asm-generic/bitops/const_hweight.h \
+  include/asm-generic/bitops/lock.h \
+  include/asm-generic/bitops/le.h \
+  arch/arm/include/uapi/asm/byteorder.h \
+  include/linux/byteorder/little_endian.h \
+    $(wildcard include/config/cpu/big/endian.h) \
+  include/uapi/linux/byteorder/little_endian.h \
   include/linux/swab.h \
   include/uapi/linux/swab.h \
-  arch/arm64/include/generated/uapi/asm/swab.h \
-  include/uapi/asm-generic/swab.h \
+  arch/arm/include/asm/swab.h \
+  arch/arm/include/uapi/asm/swab.h \
   include/linux/byteorder/generic.h \
+  include/asm-generic/bitops/ext2-atomic-setbit.h \
   include/linux/dmapool.h \
   include/linux/scatterlist.h \
     $(wildcard include/config/debug/sg.h) \
@@ -76,18 +90,27 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
   include/linux/string.h \
     $(wildcard include/config/binary/printf.h) \
     $(wildcard include/config/fortify/source.h) \
-  /tools/Xilinx/SDK/2018.3/gnu/aarch64/lin/aarch64-linux/lib/gcc/aarch64-linux-gnu/7.3.1/include/stdarg.h \
+  /tools/Xilinx/SDK/2018.3/gnu/aarch32/lin/gcc-arm-linux-gnueabi/lib/gcc/arm-linux-gnueabihf/7.3.1/include/stdarg.h \
   include/uapi/linux/string.h \
-  arch/arm64/include/asm/string.h \
-    $(wildcard include/config/arch/has/uaccess/flushcache.h) \
+  arch/arm/include/asm/string.h \
   include/linux/bug.h \
     $(wildcard include/config/generic/bug.h) \
     $(wildcard include/config/bug/on/data/corruption.h) \
-  arch/arm64/include/asm/bug.h \
-  include/linux/stringify.h \
-  arch/arm64/include/asm/asm-bug.h \
+  arch/arm/include/asm/bug.h \
     $(wildcard include/config/debug/bugverbose.h) \
-  arch/arm64/include/asm/brk-imm.h \
+    $(wildcard include/config/arm/lpae.h) \
+  include/linux/linkage.h \
+  include/linux/stringify.h \
+  include/linux/export.h \
+    $(wildcard include/config/have/underscore/symbol/prefix.h) \
+    $(wildcard include/config/modules.h) \
+    $(wildcard include/config/modversions.h) \
+    $(wildcard include/config/module/rel/crcs.h) \
+    $(wildcard include/config/trim/unused/ksyms.h) \
+    $(wildcard include/config/unused/symbols.h) \
+  arch/arm/include/asm/linkage.h \
+  arch/arm/include/asm/opcodes.h \
+    $(wildcard include/config/cpu/endian/be32.h) \
   include/asm-generic/bug.h \
     $(wildcard include/config/bug.h) \
     $(wildcard include/config/generic/bug/relative/pointers.h) \
@@ -100,19 +123,9 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/panic/timeout.h) \
     $(wildcard include/config/tracing.h) \
     $(wildcard include/config/ftrace/mcount/record.h) \
-  include/linux/linkage.h \
-  include/linux/export.h \
-    $(wildcard include/config/have/underscore/symbol/prefix.h) \
-    $(wildcard include/config/modules.h) \
-    $(wildcard include/config/modversions.h) \
-    $(wildcard include/config/module/rel/crcs.h) \
-    $(wildcard include/config/trim/unused/ksyms.h) \
-    $(wildcard include/config/unused/symbols.h) \
-  arch/arm64/include/asm/linkage.h \
   include/linux/log2.h \
     $(wildcard include/config/arch/has/ilog2/u32.h) \
     $(wildcard include/config/arch/has/ilog2/u64.h) \
-  include/linux/typecheck.h \
   include/linux/printk.h \
     $(wildcard include/config/message/loglevel/default.h) \
     $(wildcard include/config/console/loglevel/default.h) \
@@ -128,14 +141,13 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/arch/has/cache/line/size.h) \
   include/uapi/linux/kernel.h \
   include/uapi/linux/sysinfo.h \
-  arch/arm64/include/asm/cache.h \
-  arch/arm64/include/asm/cputype.h \
-  arch/arm64/include/asm/sysreg.h \
-    $(wildcard include/config/broken/gas/inst.h) \
-    $(wildcard include/config/arm64/4k/pages.h) \
-    $(wildcard include/config/arm64/16k/pages.h) \
-    $(wildcard include/config/arm64/64k/pages.h) \
+  arch/arm/include/asm/cache.h \
+    $(wildcard include/config/arm/l1/cache/shift.h) \
+    $(wildcard include/config/aeabi.h) \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   include/linux/mm.h \
     $(wildcard include/config/need/multiple/nodes.h) \
     $(wildcard include/config/sysctl.h) \
@@ -173,7 +185,7 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/hugetlbfs.h) \
   include/linux/errno.h \
   include/uapi/linux/errno.h \
-  arch/arm64/include/generated/uapi/asm/errno.h \
+  arch/arm/include/generated/uapi/asm/errno.h \
   include/uapi/asm-generic/errno.h \
   include/uapi/asm-generic/errno-base.h \
   include/linux/mmdebug.h \
@@ -213,7 +225,6 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
   include/linux/preempt.h \
     $(wildcard include/config/preempt/count.h) \
     $(wildcard include/config/debug/preempt.h) \
-    $(wildcard include/config/preempt/tracer.h) \
     $(wildcard include/config/preempt/notifiers.h) \
   include/linux/list.h \
     $(wildcard include/config/debug/list.h) \
@@ -221,7 +232,7 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/illegal/pointer/value.h) \
     $(wildcard include/config/page/poisoning/zero.h) \
   include/uapi/linux/const.h \
-  arch/arm64/include/generated/asm/preempt.h \
+  arch/arm/include/generated/asm/preempt.h \
   include/asm-generic/preempt.h \
   include/linux/thread_info.h \
     $(wildcard include/config/thread/info/in/task.h) \
@@ -231,68 +242,52 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/hardened/usercopy.h) \
   include/linux/restart_block.h \
     $(wildcard include/config/compat.h) \
-  arch/arm64/include/asm/current.h \
-  arch/arm64/include/asm/thread_info.h \
-    $(wildcard include/config/arm64/sw/ttbr0/pan.h) \
-  arch/arm64/include/asm/memory.h \
-    $(wildcard include/config/arm64/va/bits.h) \
-    $(wildcard include/config/vmap/stack.h) \
-    $(wildcard include/config/debug/align/rodata.h) \
-    $(wildcard include/config/blk/dev/initrd.h) \
-  arch/arm64/include/asm/page-def.h \
-    $(wildcard include/config/arm64/page/shift.h) \
-    $(wildcard include/config/arm64/cont/shift.h) \
-  arch/arm64/include/generated/asm/sizes.h \
-  include/asm-generic/sizes.h \
+  arch/arm/include/asm/thread_info.h \
+    $(wildcard include/config/crunch.h) \
+    $(wildcard include/config/arm/thumbee.h) \
+  arch/arm/include/asm/fpstate.h \
+    $(wildcard include/config/vfpv3.h) \
+    $(wildcard include/config/iwmmxt.h) \
+  arch/arm/include/asm/page.h \
+    $(wildcard include/config/cpu/copy/v4wt.h) \
+    $(wildcard include/config/cpu/copy/v4wb.h) \
+    $(wildcard include/config/cpu/copy/feroceon.h) \
+    $(wildcard include/config/cpu/copy/fa.h) \
+    $(wildcard include/config/cpu/sa1100.h) \
+    $(wildcard include/config/cpu/xscale.h) \
+    $(wildcard include/config/cpu/copy/v6.h) \
+    $(wildcard include/config/kuser/helpers.h) \
+  arch/arm/include/asm/glue.h \
+  arch/arm/include/asm/pgtable-2level-types.h \
+  arch/arm/include/asm/memory.h \
+    $(wildcard include/config/need/mach/memory/h.h) \
+    $(wildcard include/config/page/offset.h) \
+    $(wildcard include/config/dram/base.h) \
+    $(wildcard include/config/dram/size.h) \
+    $(wildcard include/config/xip/kernel.h) \
+    $(wildcard include/config/have/tcm.h) \
+    $(wildcard include/config/arm/patch/phys/virt.h) \
+    $(wildcard include/config/phys/offset.h) \
+    $(wildcard include/config/xip/phys/addr.h) \
   include/linux/sizes.h \
   include/asm-generic/memory_model.h \
   include/linux/pfn.h \
-  arch/arm64/include/asm/stack_pointer.h \
-  include/linux/irqflags.h \
-    $(wildcard include/config/trace/irqflags.h) \
-    $(wildcard include/config/irqsoff/tracer.h) \
-    $(wildcard include/config/trace/irqflags/support.h) \
-  arch/arm64/include/asm/irqflags.h \
-  arch/arm64/include/asm/ptrace.h \
-  arch/arm64/include/uapi/asm/ptrace.h \
-  arch/arm64/include/asm/hwcap.h \
-  arch/arm64/include/uapi/asm/hwcap.h \
-  include/asm-generic/ptrace.h \
+  include/asm-generic/getorder.h \
   include/linux/bottom_half.h \
   include/linux/spinlock_types.h \
-  arch/arm64/include/asm/spinlock_types.h \
+  arch/arm/include/asm/spinlock_types.h \
   include/linux/lockdep.h \
     $(wildcard include/config/lock/stat.h) \
     $(wildcard include/config/lockdep/crossrelease.h) \
   include/linux/rwlock_types.h \
-  arch/arm64/include/asm/spinlock.h \
-  arch/arm64/include/asm/lse.h \
-    $(wildcard include/config/as/lse.h) \
-    $(wildcard include/config/arm64/lse/atomics.h) \
-  arch/arm64/include/asm/processor.h \
+  arch/arm/include/asm/spinlock.h \
+  include/linux/prefetch.h \
+  arch/arm/include/asm/processor.h \
     $(wildcard include/config/have/hw/breakpoint.h) \
-  arch/arm64/include/asm/alternative.h \
-    $(wildcard include/config/arm64/uao.h) \
-    $(wildcard include/config/foo.h) \
-  arch/arm64/include/asm/cpucaps.h \
-  arch/arm64/include/asm/insn.h \
-  arch/arm64/include/asm/fpsimd.h \
-  arch/arm64/include/asm/hw_breakpoint.h \
-  arch/arm64/include/asm/cpufeature.h \
-  include/linux/jump_label.h \
-    $(wildcard include/config/jump/label.h) \
-  include/linux/atomic.h \
-    $(wildcard include/config/generic/atomic64.h) \
-  arch/arm64/include/asm/atomic.h \
-  arch/arm64/include/asm/atomic_ll_sc.h \
-  arch/arm64/include/asm/cmpxchg.h \
-  include/asm-generic/atomic-long.h \
-  arch/arm64/include/asm/virt.h \
-    $(wildcard include/config/arm64/vhe.h) \
-  arch/arm64/include/asm/sections.h \
-  include/asm-generic/sections.h \
-  arch/arm64/include/asm/pgtable-hwdef.h \
-    $(wildcard include/config/pgtable/levels.h) \
+    $(wildcard include/config/arm/errata/754327.h) \
+  arch/arm/include/asm/hw_breakpoint.h \
+  arch/arm/include/asm/unified.h \
+    $(wildcard include/config/arm/asm/unified.h) \
   include/linux/rwlock.h \
   include/linux/spinlock_api_smp.h \
     $(wildcard include/config/inline/spin/lock.h) \
@@ -324,7 +319,17 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/inline/write/unlock/irq.h) \
     $(wildcard include/config/inline/read/unlock/irqrestore.h) \
     $(wildcard include/config/inline/write/unlock/irqrestore.h) \
+  include/linux/atomic.h \
+    $(wildcard include/config/generic/atomic64.h) \
+  arch/arm/include/asm/atomic.h \
+  arch/arm/include/asm/cmpxchg.h \
+    $(wildcard include/config/cpu/sa110.h) \
+    $(wildcard include/config/cpu/v6.h) \
+  include/asm-generic/cmpxchg-local.h \
+  include/asm-generic/atomic-long.h \
   include/linux/wait.h \
+  arch/arm/include/generated/asm/current.h \
+  include/asm-generic/current.h \
   include/uapi/linux/wait.h \
   include/linux/threads.h \
     $(wildcard include/config/nr/cpus.h) \
@@ -338,15 +343,6 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/hugetlb/page/size/variable.h) \
   include/linux/page-flags-layout.h \
   include/generated/bounds.h \
-  arch/arm64/include/asm/sparsemem.h \
-  arch/arm64/include/asm/page.h \
-  include/linux/personality.h \
-  include/uapi/linux/personality.h \
-  arch/arm64/include/asm/pgtable-types.h \
-  include/asm-generic/pgtable-nopud.h \
-  include/asm-generic/pgtable-nop4d-hack.h \
-  include/asm-generic/5level-fixup.h \
-  include/asm-generic/getorder.h \
   include/linux/memory_hotplug.h \
     $(wildcard include/config/arch/has/add/pages.h) \
     $(wildcard include/config/have/arch/nodedata/extension.h) \
@@ -362,7 +358,7 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/rwsem/spin/on/owner.h) \
     $(wildcard include/config/rwsem/generic/spinlock.h) \
   include/linux/err.h \
-  arch/arm64/include/generated/asm/rwsem.h \
+  arch/arm/include/generated/asm/rwsem.h \
   include/asm-generic/rwsem.h \
   include/linux/srcu.h \
     $(wildcard include/config/tiny/srcu.h) \
@@ -398,36 +394,17 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/arch/uses/gettimeoffset.h) \
   include/linux/math64.h \
     $(wildcard include/config/arch/supports/int128.h) \
-  arch/arm64/include/generated/asm/div64.h \
-  include/asm-generic/div64.h \
   include/linux/time64.h \
   include/uapi/linux/time.h \
   include/linux/jiffies.h \
   include/linux/timex.h \
   include/uapi/linux/timex.h \
   include/uapi/linux/param.h \
-  arch/arm64/include/uapi/asm/param.h \
+  arch/arm/include/generated/uapi/asm/param.h \
   include/asm-generic/param.h \
     $(wildcard include/config/hz.h) \
   include/uapi/asm-generic/param.h \
-  arch/arm64/include/asm/timex.h \
-  arch/arm64/include/asm/arch_timer.h \
-    $(wildcard include/config/arm/arch/timer/ool/workaround.h) \
-  include/linux/smp.h \
-    $(wildcard include/config/up/late/init.h) \
-  include/linux/llist.h \
-    $(wildcard include/config/arch/have/nmi/safe/cmpxchg.h) \
-  arch/arm64/include/asm/smp.h \
-    $(wildcard include/config/arm64/acpi/parking/protocol.h) \
-  arch/arm64/include/asm/percpu.h \
-  include/asm-generic/percpu.h \
-    $(wildcard include/config/have/setup/per/cpu/area.h) \
-  include/linux/percpu-defs.h \
-    $(wildcard include/config/debug/force/weak/per/cpu.h) \
-  include/clocksource/arm_arch_timer.h \
-    $(wildcard include/config/arm/arch/timer.h) \
-  include/linux/timecounter.h \
-  include/asm-generic/timex.h \
+  arch/arm/include/asm/timex.h \
   include/generated/timeconst.h \
   include/linux/timekeeping.h \
   include/linux/debugobjects.h \
@@ -443,10 +420,21 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
   include/linux/topology.h \
     $(wildcard include/config/use/percpu/numa/node/id.h) \
     $(wildcard include/config/sched/smt.h) \
+  include/linux/smp.h \
+    $(wildcard include/config/up/late/init.h) \
+  include/linux/llist.h \
+    $(wildcard include/config/arch/have/nmi/safe/cmpxchg.h) \
+  arch/arm/include/asm/smp.h \
   include/linux/percpu.h \
     $(wildcard include/config/need/per/cpu/embed/first/chunk.h) \
     $(wildcard include/config/need/per/cpu/page/first/chunk.h) \
-  arch/arm64/include/asm/topology.h \
+    $(wildcard include/config/have/setup/per/cpu/area.h) \
+  arch/arm/include/asm/percpu.h \
+  include/asm-generic/percpu.h \
+  include/linux/percpu-defs.h \
+    $(wildcard include/config/debug/force/weak/per/cpu.h) \
+  arch/arm/include/asm/topology.h \
+    $(wildcard include/config/arm/cpu/topology.h) \
   include/asm-generic/topology.h \
   include/linux/rbtree.h \
   include/linux/mm_types.h \
@@ -455,6 +443,7 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/kmemcheck.h) \
     $(wildcard include/config/userfaultfd.h) \
     $(wildcard include/config/have/arch/compat/mmap/bases.h) \
+    $(wildcard include/config/pgtable/levels.h) \
     $(wildcard include/config/membarrier.h) \
     $(wildcard include/config/aio.h) \
     $(wildcard include/config/mmu/notifier.h) \
@@ -465,17 +454,20 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/arch/enable/split/pmd/ptlock.h) \
   include/linux/auxvec.h \
   include/uapi/linux/auxvec.h \
-  arch/arm64/include/uapi/asm/auxvec.h \
+  arch/arm/include/asm/auxvec.h \
+  arch/arm/include/uapi/asm/auxvec.h \
   include/linux/uprobes.h \
     $(wildcard include/config/uprobes.h) \
-  arch/arm64/include/asm/mmu.h \
+  arch/arm/include/asm/mmu.h \
+    $(wildcard include/config/cpu/has/asid.h) \
+    $(wildcard include/config/vdso.h) \
   include/linux/range.h \
   include/linux/percpu-refcount.h \
   include/linux/bit_spinlock.h \
   include/linux/shrinker.h \
   include/linux/resource.h \
   include/uapi/linux/resource.h \
-  arch/arm64/include/generated/uapi/asm/resource.h \
+  arch/arm/include/generated/uapi/asm/resource.h \
   include/asm-generic/resource.h \
   include/uapi/asm-generic/resource.h \
   include/linux/page_ext.h \
@@ -494,55 +486,49 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/ksm.h) \
   include/linux/tracepoint-defs.h \
   include/linux/static_key.h \
+  include/linux/jump_label.h \
+    $(wildcard include/config/jump/label.h) \
   include/linux/memremap.h \
   include/linux/ioport.h \
-  arch/arm64/include/asm/pgtable.h \
-  arch/arm64/include/asm/proc-fns.h \
-  arch/arm64/include/asm/pgtable-prot.h \
-  arch/arm64/include/asm/fixmap.h \
-  arch/arm64/include/asm/boot.h \
-  include/asm-generic/fixmap.h \
-  include/asm-generic/pgtable.h \
-    $(wildcard include/config/have/arch/transparent/hugepage/pud.h) \
-    $(wildcard include/config/have/arch/soft/dirty.h) \
-    $(wildcard include/config/arch/enable/thp/migration.h) \
-    $(wildcard include/config/have/arch/huge/vmap.h) \
-  include/linux/huge_mm.h \
-  include/linux/sched/coredump.h \
-    $(wildcard include/config/core/dump/default/elf/headers.h) \
-  include/linux/fs.h \
-    $(wildcard include/config/fs/posix/acl.h) \
-    $(wildcard include/config/security.h) \
-    $(wildcard include/config/cgroup/writeback.h) \
-    $(wildcard include/config/ima.h) \
-    $(wildcard include/config/fsnotify.h) \
-    $(wildcard include/config/fs/encryption.h) \
-    $(wildcard include/config/epoll.h) \
-    $(wildcard include/config/file/locking.h) \
-    $(wildcard include/config/quota.h) \
-    $(wildcard include/config/fs/dax.h) \
-    $(wildcard include/config/mandatory/file/locking.h) \
-    $(wildcard include/config/block.h) \
-    $(wildcard include/config/migration.h) \
-  include/linux/wait_bit.h \
-  include/linux/kdev_t.h \
-  include/uapi/linux/kdev_t.h \
-  include/linux/dcache.h \
-  include/linux/rculist.h \
-  include/linux/rculist_bl.h \
-  include/linux/list_bl.h \
-  include/linux/lockref.h \
-    $(wildcard include/config/arch/use/cmpxchg/lockref.h) \
-  include/linux/stringhash.h \
-    $(wildcard include/config/dcache/word/access.h) \
-  include/linux/hash.h \
-    $(wildcard include/config/have/arch/hash.h) \
-  include/linux/path.h \
-  include/linux/stat.h \
-  arch/arm64/include/asm/stat.h \
-  arch/arm64/include/uapi/asm/stat.h \
-  include/uapi/asm-generic/stat.h \
-  arch/arm64/include/asm/compat.h \
+  arch/arm/include/asm/pgtable.h \
+    $(wildcard include/config/highpte.h) \
+  arch/arm/include/asm/proc-fns.h \
+  arch/arm/include/asm/glue-proc.h \
+    $(wildcard include/config/cpu/arm7tdmi.h) \
+    $(wildcard include/config/cpu/arm720t.h) \
+    $(wildcard include/config/cpu/arm740t.h) \
+    $(wildcard include/config/cpu/arm9tdmi.h) \
+    $(wildcard include/config/cpu/arm920t.h) \
+    $(wildcard include/config/cpu/arm922t.h) \
+    $(wildcard include/config/cpu/arm925t.h) \
+    $(wildcard include/config/cpu/arm926t.h) \
+    $(wildcard include/config/cpu/arm940t.h) \
+    $(wildcard include/config/cpu/arm946e.h) \
+    $(wildcard include/config/cpu/arm1020.h) \
+    $(wildcard include/config/cpu/arm1020e.h) \
+    $(wildcard include/config/cpu/arm1022.h) \
+    $(wildcard include/config/cpu/arm1026.h) \
+    $(wildcard include/config/cpu/mohawk.h) \
+    $(wildcard include/config/cpu/feroceon.h) \
+    $(wildcard include/config/cpu/v6k.h) \
+    $(wildcard include/config/cpu/pj4b.h) \
+    $(wildcard include/config/cpu/v7.h) \
+  include/asm-generic/pgtable-nopud.h \
+  include/asm-generic/pgtable-nop4d-hack.h \
+  include/asm-generic/5level-fixup.h \
+  arch/arm/include/asm/pgtable-hwdef.h \
+  arch/arm/include/asm/pgtable-2level-hwdef.h \
+  arch/arm/include/asm/tlbflush.h \
+    $(wildcard include/config/smp/on/up.h) \
+    $(wildcard include/config/cpu/tlb/v4wt.h) \
+    $(wildcard include/config/cpu/tlb/fa.h) \
+    $(wildcard include/config/cpu/tlb/v4wbi.h) \
+    $(wildcard include/config/cpu/tlb/feroceon.h) \
+    $(wildcard include/config/cpu/tlb/v4wb.h) \
+    $(wildcard include/config/cpu/tlb/v6.h) \
+    $(wildcard include/config/cpu/tlb/v7.h) \
+    $(wildcard include/config/arm/errata/720789.h) \
+    $(wildcard include/config/arm/errata/798181.h) \
   include/linux/sched.h \
     $(wildcard include/config/virt/cpu/accounting/native.h) \
     $(wildcard include/config/sched/info.h) \
@@ -563,6 +549,7 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/auditsyscall.h) \
     $(wildcard include/config/rt/mutexes.h) \
     $(wildcard include/config/ubsan.h) \
+    $(wildcard include/config/block.h) \
     $(wildcard include/config/task/xacct.h) \
     $(wildcard include/config/cpusets.h) \
     $(wildcard include/config/intel/rdt.h) \
@@ -574,9 +561,12 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/function/graph/tracer.h) \
     $(wildcard include/config/kcov.h) \
     $(wildcard include/config/bcache.h) \
+    $(wildcard include/config/vmap/stack.h) \
     $(wildcard include/config/livepatch.h) \
+    $(wildcard include/config/security.h) \
   include/uapi/linux/sched.h \
   include/linux/pid.h \
+  include/linux/rculist.h \
   include/linux/sem.h \
   include/uapi/linux/sem.h \
   include/linux/ipc.h \
@@ -589,19 +579,18 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
   include/linux/unaligned/packed_struct.h \
   include/linux/list_nulls.h \
   include/uapi/linux/ipc.h \
-  arch/arm64/include/generated/uapi/asm/ipcbuf.h \
+  arch/arm/include/generated/uapi/asm/ipcbuf.h \
   include/uapi/asm-generic/ipcbuf.h \
   include/linux/refcount.h \
     $(wildcard include/config/refcount/full.h) \
-  arch/arm64/include/generated/uapi/asm/sembuf.h \
+  arch/arm/include/generated/uapi/asm/sembuf.h \
   include/uapi/asm-generic/sembuf.h \
   include/linux/shm.h \
   include/uapi/linux/shm.h \
   include/uapi/asm-generic/hugetlb_encode.h \
-  arch/arm64/include/generated/uapi/asm/shmbuf.h \
+  arch/arm/include/generated/uapi/asm/shmbuf.h \
   include/uapi/asm-generic/shmbuf.h \
-  arch/arm64/include/asm/shmparam.h \
-  include/uapi/asm-generic/shmparam.h \
+  arch/arm/include/asm/shmparam.h \
   include/linux/kcov.h \
   include/uapi/linux/kcov.h \
   include/linux/plist.h \
@@ -622,17 +611,50 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
   include/linux/signal_types.h \
     $(wildcard include/config/old/sigaction.h) \
   include/uapi/linux/signal.h \
-  arch/arm64/include/uapi/asm/signal.h \
-  include/asm-generic/signal.h \
-  include/uapi/asm-generic/signal.h \
+  arch/arm/include/asm/signal.h \
+  arch/arm/include/uapi/asm/signal.h \
   include/uapi/asm-generic/signal-defs.h \
-  arch/arm64/include/uapi/asm/sigcontext.h \
-  arch/arm64/include/uapi/asm/siginfo.h \
+  arch/arm/include/uapi/asm/sigcontext.h \
+  arch/arm/include/generated/uapi/asm/siginfo.h \
   include/uapi/asm-generic/siginfo.h \
   include/linux/task_io_accounting.h \
     $(wildcard include/config/task/io/accounting.h) \
-  include/linux/sched/task_stack.h \
-  include/uapi/linux/magic.h \
+  arch/arm/include/asm/pgtable-2level.h \
+  include/asm-generic/pgtable.h \
+    $(wildcard include/config/have/arch/transparent/hugepage/pud.h) \
+    $(wildcard include/config/have/arch/soft/dirty.h) \
+    $(wildcard include/config/arch/enable/thp/migration.h) \
+    $(wildcard include/config/have/arch/huge/vmap.h) \
+  include/linux/huge_mm.h \
+  include/linux/sched/coredump.h \
+    $(wildcard include/config/core/dump/default/elf/headers.h) \
+  include/linux/fs.h \
+    $(wildcard include/config/fs/posix/acl.h) \
+    $(wildcard include/config/cgroup/writeback.h) \
+    $(wildcard include/config/ima.h) \
+    $(wildcard include/config/fsnotify.h) \
+    $(wildcard include/config/fs/encryption.h) \
+    $(wildcard include/config/epoll.h) \
+    $(wildcard include/config/file/locking.h) \
+    $(wildcard include/config/quota.h) \
+    $(wildcard include/config/fs/dax.h) \
+    $(wildcard include/config/mandatory/file/locking.h) \
+    $(wildcard include/config/migration.h) \
+  include/linux/wait_bit.h \
+  include/linux/kdev_t.h \
+  include/uapi/linux/kdev_t.h \
+  include/linux/dcache.h \
+  include/linux/rculist_bl.h \
+  include/linux/list_bl.h \
+  include/linux/lockref.h \
+    $(wildcard include/config/arch/use/cmpxchg/lockref.h) \
+  include/linux/stringhash.h \
+    $(wildcard include/config/dcache/word/access.h) \
+  include/linux/hash.h \
+    $(wildcard include/config/have/arch/hash.h) \
+  include/linux/path.h \
+  include/linux/stat.h \
+  arch/arm/include/uapi/asm/stat.h \
   include/uapi/linux/stat.h \
   include/linux/list_lru.h \
   include/linux/radix-tree.h \
@@ -642,7 +664,7 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
   include/linux/semaphore.h \
   include/linux/fcntl.h \
   include/uapi/linux/fcntl.h \
-  arch/arm64/include/uapi/asm/fcntl.h \
+  arch/arm/include/uapi/asm/fcntl.h \
   include/uapi/asm-generic/fcntl.h \
   include/uapi/linux/fiemap.h \
   include/linux/migrate_mode.h \
@@ -656,7 +678,7 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
   include/uapi/linux/fs.h \
   include/uapi/linux/limits.h \
   include/uapi/linux/ioctl.h \
-  arch/arm64/include/generated/uapi/asm/ioctl.h \
+  arch/arm/include/generated/uapi/asm/ioctl.h \
   include/asm-generic/ioctl.h \
   include/uapi/asm-generic/ioctl.h \
   include/linux/quota.h \
@@ -676,10 +698,15 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
   include/linux/vm_event_item.h \
     $(wildcard include/config/memory/balloon.h) \
     $(wildcard include/config/balloon/compaction.h) \
-  arch/arm64/include/asm/io.h \
-  arch/arm64/include/generated/asm/early_ioremap.h \
-  include/asm-generic/early_ioremap.h \
-    $(wildcard include/config/generic/early/ioremap.h) \
+  arch/arm/include/asm/io.h \
+    $(wildcard include/config/pci.h) \
+    $(wildcard include/config/need/mach/io/h.h) \
+    $(wildcard include/config/pcmcia/soc/common.h) \
+    $(wildcard include/config/isa.h) \
+    $(wildcard include/config/pccard.h) \
+  include/asm-generic/pci_iomap.h \
+    $(wildcard include/config/no/generic/pci/ioport/map.h) \
+    $(wildcard include/config/generic/pci/iomap.h) \
   include/xen/xen.h \
     $(wildcard include/config/xen.h) \
     $(wildcard include/config/xen/pvh.h) \
@@ -688,10 +715,6 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/generic/iomap.h) \
     $(wildcard include/config/has/ioport/map.h) \
     $(wildcard include/config/virt/to/bus.h) \
-  include/asm-generic/pci_iomap.h \
-    $(wildcard include/config/pci.h) \
-    $(wildcard include/config/no/generic/pci/ioport/map.h) \
-    $(wildcard include/config/generic/pci/iomap.h) \
   include/linux/vmalloc.h \
   include/linux/dma/xilinx_dma.h \
   include/linux/dma-mapping.h \
@@ -744,8 +767,11 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/pm/clk.h) \
     $(wildcard include/config/pm/generic/domains.h) \
   include/linux/ratelimit.h \
-  arch/arm64/include/asm/device.h \
+  arch/arm/include/asm/device.h \
+    $(wildcard include/config/dmabounce.h) \
     $(wildcard include/config/iommu/api.h) \
+    $(wildcard include/config/arm/dma/use/iommu.h) \
+    $(wildcard include/config/arch/omap.h) \
   include/linux/pm_wakeup.h \
   include/linux/dma-debug.h \
   include/linux/dma-direction.h \
@@ -753,9 +779,8 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
   include/linux/mem_encrypt.h \
     $(wildcard include/config/arch/has/mem/encrypt.h) \
     $(wildcard include/config/amd/mem/encrypt.h) \
-  arch/arm64/include/asm/dma-mapping.h \
-    $(wildcard include/config/iommu/dma.h) \
-  arch/arm64/include/asm/xen/hypervisor.h \
+  arch/arm/include/asm/dma-mapping.h \
+  arch/arm/include/asm/xen/hypervisor.h \
   include/xen/arm/hypervisor.h \
   include/linux/dmaengine.h \
     $(wildcard include/config/async/tx/enable/channel/switch.h) \
@@ -763,6 +788,7 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/rapidio/dma/engine.h) \
     $(wildcard include/config/async/tx/dma.h) \
   include/linux/uio.h \
+    $(wildcard include/config/arch/has/uaccess/flushcache.h) \
   include/uapi/linux/uio.h \
   include/linux/interrupt.h \
     $(wildcard include/config/irq/forced/threading.h) \
@@ -781,15 +807,17 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/irq/time/accounting.h) \
   include/linux/context_tracking_state.h \
     $(wildcard include/config/context/tracking.h) \
-  arch/arm64/include/asm/hardirq.h \
-  arch/arm64/include/asm/irq.h \
-  include/asm-generic/irq.h \
+  arch/arm/include/asm/hardirq.h \
+  arch/arm/include/asm/irq.h \
+    $(wildcard include/config/sparse/irq.h) \
+    $(wildcard include/config/multi/irq/handler.h) \
   include/linux/irq_cpustat.h \
+  arch/arm/include/asm/sections.h \
+  include/asm-generic/sections.h \
   include/linux/io.h \
   include/linux/iopoll.h \
   include/linux/delay.h \
-  arch/arm64/include/generated/asm/delay.h \
-  include/asm-generic/delay.h \
+  arch/arm/include/asm/delay.h \
   include/linux/module.h \
     $(wildcard include/config/modules/tree/lookup.h) \
     $(wildcard include/config/module/sig.h) \
@@ -801,19 +829,18 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
   include/linux/kmod.h \
   include/linux/umh.h \
   include/linux/elf.h \
-  arch/arm64/include/asm/elf.h \
-  arch/arm64/include/generated/asm/user.h \
-  include/asm-generic/user.h \
+  arch/arm/include/asm/elf.h \
+  arch/arm/include/asm/vdso_datapage.h \
+  arch/arm/include/asm/user.h \
   include/uapi/linux/elf.h \
   include/uapi/linux/elf-em.h \
   include/linux/moduleparam.h \
     $(wildcard include/config/alpha.h) \
     $(wildcard include/config/ppc64.h) \
   include/linux/rbtree_latch.h \
-  arch/arm64/include/asm/module.h \
-    $(wildcard include/config/arm64/module/plts.h) \
-    $(wildcard include/config/dynamic/ftrace.h) \
-    $(wildcard include/config/randomize/base.h) \
+  arch/arm/include/asm/module.h \
+    $(wildcard include/config/arm/unwind.h) \
+    $(wildcard include/config/arm/module/plts.h) \
   include/asm-generic/module.h \
     $(wildcard include/config/have/mod/arch/specific.h) \
     $(wildcard include/config/modules/use/elf/rel.h) \
@@ -871,15 +898,13 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/slub.h) \
   include/linux/kmemleak.h \
   include/linux/kasan.h \
-  arch/arm64/include/generated/asm/irq_regs.h \
+  arch/arm/include/generated/asm/irq_regs.h \
   include/asm-generic/irq_regs.h \
   include/linux/irqdesc.h \
     $(wildcard include/config/irq/preflow/fasteoi.h) \
     $(wildcard include/config/generic/irq/debugfs.h) \
-    $(wildcard include/config/sparse/irq.h) \
     $(wildcard include/config/handle/domain/irq.h) \
-  arch/arm64/include/generated/asm/hw_irq.h \
-  include/asm-generic/hw_irq.h \
+  arch/arm/include/asm/hw_irq.h \
   include/linux/irqdomain.h \
     $(wildcard include/config/irq/domain.h) \
   include/linux/clk.h \
@@ -912,9 +937,9 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/nf/tables.h) \
     $(wildcard include/config/ip/vs.h) \
   include/linux/socket.h \
-  arch/arm64/include/generated/uapi/asm/socket.h \
+  arch/arm/include/generated/uapi/asm/socket.h \
   include/uapi/asm-generic/socket.h \
-  arch/arm64/include/generated/uapi/asm/sockios.h \
+  arch/arm/include/generated/uapi/asm/sockios.h \
   include/uapi/asm-generic/sockios.h \
   include/uapi/linux/sockios.h \
   include/uapi/linux/socket.h \
@@ -929,21 +954,24 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
   include/net/checksum.h \
   include/linux/uaccess.h \
   include/linux/kasan-checks.h \
-  arch/arm64/include/asm/uaccess.h \
-    $(wildcard include/config/arm64/pan.h) \
-  arch/arm64/include/asm/kernel-pgtable.h \
-  arch/arm64/include/asm/compiler.h \
-  arch/arm64/include/asm/extable.h \
-  arch/arm64/include/asm/checksum.h \
-  include/asm-generic/checksum.h \
-  include/linux/netdev_features.h \
-  include/linux/sched/clock.h \
-    $(wildcard include/config/have/unstable/sched/clock.h) \
-  include/net/flow_dissector.h \
+  arch/arm/include/asm/uaccess.h \
+    $(wildcard include/config/cpu/sw/domain/pan.h) \
+    $(wildcard include/config/cpu/use/domains.h) \
+    $(wildcard include/config/uaccess/with/memcpy.h) \
+  arch/arm/include/asm/domain.h \
+    $(wildcard include/config/io/36.h) \
+    $(wildcard include/config/cpu/cp15/mmu.h) \
+  arch/arm/include/generated/asm/extable.h \
+  include/asm-generic/extable.h \
+  arch/arm/include/asm/checksum.h \
   include/linux/in6.h \
   include/uapi/linux/in6.h \
   include/uapi/linux/libc-compat.h \
     $(wildcard include/config/data.h) \
+  include/linux/netdev_features.h \
+  include/linux/sched/clock.h \
+    $(wildcard include/config/have/unstable/sched/clock.h) \
+  include/net/flow_dissector.h \
   include/uapi/linux/if_ether.h \
   include/linux/splice.h \
   include/linux/pipe_fs_i.h \
@@ -981,20 +1009,11 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/mrp.h) \
     $(wildcard include/config/cgroup/net/prio.h) \
     $(wildcard include/config/net/flow/limit.h) \
-  include/linux/prefetch.h \
   include/linux/dynamic_queue_limits.h \
   include/linux/ethtool.h \
   include/linux/compat.h \
     $(wildcard include/config/compat/old/sigaction.h) \
     $(wildcard include/config/odd/rt/sigaction.h) \
-  include/uapi/linux/if.h \
-  include/uapi/linux/hdlc/ioctl.h \
-  include/uapi/linux/aio_abi.h \
-  include/uapi/linux/unistd.h \
-  arch/arm64/include/asm/unistd.h \
-  arch/arm64/include/uapi/asm/unistd.h \
-  include/asm-generic/unistd.h \
-  include/uapi/asm-generic/unistd.h \
   include/uapi/linux/ethtool.h \
   include/net/net_namespace.h \
     $(wildcard include/config/ieee802154/6lowpan.h) \
@@ -1098,6 +1117,8 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/securityfs.h) \
   include/uapi/linux/netlink.h \
   include/uapi/linux/netdevice.h \
+  include/uapi/linux/if.h \
+  include/uapi/linux/hdlc/ioctl.h \
   include/linux/if_link.h \
   include/uapi/linux/if_link.h \
     $(wildcard include/config/pending.h) \
@@ -1106,9 +1127,9 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/net/cls/ind.h) \
   include/uapi/linux/pkt_sched.h \
   include/linux/hashtable.h \
-  arch/arm64/include/generated/asm/unaligned.h \
-  include/asm-generic/unaligned.h \
-  include/linux/unaligned/access_ok.h \
+  arch/arm/include/asm/unaligned.h \
+  include/linux/unaligned/le_struct.h \
+  include/linux/unaligned/be_byteshift.h \
   include/linux/unaligned/generic.h \
   include/net/cfg80211.h \
     $(wildcard include/config/cfg80211.h) \
@@ -1158,13 +1179,12 @@ deps_/home/xiaow/Openwifi/openwifi/driver/xpu/xpu.o := \
     $(wildcard include/config/have/ebpf/jit.h) \
   include/linux/cryptohash.h \
   include/linux/set_memory.h \
-  arch/arm64/include/generated/asm/set_memory.h \
-  include/asm-generic/set_memory.h \
+  arch/arm/include/asm/set_memory.h \
   include/uapi/linux/filter.h \
   include/linux/rculist_nulls.h \
   include/linux/poll.h \
   include/uapi/linux/poll.h \
-  arch/arm64/include/generated/uapi/asm/poll.h \
+  arch/arm/include/generated/uapi/asm/poll.h \
   include/uapi/asm-generic/poll.h \
   include/net/dst.h \
   include/net/neighbour.h \
