@@ -427,17 +427,6 @@ static irqreturn_t openwifi_rx_interrupt(int irq, void *dev_id)
 	u16 agc_status_and_pkt_exist_flag, rssi_half_db, addr1_high16, addr2_high16=0, addr3_high16=0, seq_no=0;
 	bool content_ok, len_overflow, is_unicast;
 
-	// add by hxy
-	unsigned int hdr_len;
-	u8 *hdr_ptr;
-	u8 *custom_hdr_ptr;
-	unsigned int custom_len;
-	u8 path_nodes_num;
-	u8 *payload_ptr;
-	unsigned int payload_len;
-	u32 frame_ctrl;
-	bool bNeedRelay;
-
 #ifdef USE_NEW_RX_INTERRUPT
 	int i;
 	spin_lock(&priv->lock);
@@ -471,18 +460,6 @@ static irqreturn_t openwifi_rx_interrupt(int irq, void *dev_id)
 		rate_idx =     (rate_idx&0x1F);
 
 		fcs_ok = ( len_overflow?0:(*(( u8*)(pdata_tmp+16+len-1))) );
-
-		u8 netwave_info0;
-		u8 netwave_info1;
-		u8 netwave_info2;
-		u8 netwave_info3;
-		netwave_info0 = (*((u8*)(pdata_tmp+16+len)));
-		netwave_info1 = (*((u8*)(pdata_tmp+16+len+1)));
-		netwave_info2 = (*((u8*)(pdata_tmp+16+len+2)));
-		netwave_info3 = (*((u8*)(pdata_tmp+16+len+3)));
-		printk("Read String: %02x %02x %02x %02x %02x\n", 
-				fcs_ok, netwave_info0, netwave_info1, netwave_info2, netwave_info3);
-		bNeedRelay = ((netwave_info0 >> 6) & 0x01);
 
 		//phy_rx_sn_hw = (fcs_ok&(NUM_RX_BD-1));
 		// phy_rx_sn_hw = (fcs_ok&0x7f);//0x7f is FPGA limitation
@@ -536,95 +513,9 @@ static irqreturn_t openwifi_rx_interrupt(int irq, void *dev_id)
 		
 		// priv->phy_rx_sn_hw_old = phy_rx_sn_hw;
 		if (content_ok) {
-			//add by chenqi
-			hdr_len = ieee80211_hdrlen(hdr->frame_control);
-			if(*(u8*)(pdata_tmp+19+hdr_len) == 0x4e)
-			{
-				custom_hdr_ptr = pdata_tmp+16+hdr_len;
-				frame_ctrl =
-					((u32)custom_hdr_ptr[0] << 24) |
-					((u32)custom_hdr_ptr[1] << 16) |
-					((u32)custom_hdr_ptr[2] <<  8) |
-					((u32)custom_hdr_ptr[3] <<  0);
-				//frame_ctrl = get_unaligned_be32(custom_hdr_ptr);
-				path_nodes_num = (frame_ctrl >> 22) & 0x3F;
-				printk("cq:rx_interrupt path_nodes_num %d\n", path_nodes_num);
-				custom_len = 28 + path_nodes_num * 6;
-				if(len > (hdr_len+custom_len))
-				{
-
-					skb=dev_alloc_skb(len - custom_len);
-				}
-				else
-				{
-					skb = NULL;
-				}
-			}
-			else {skb = NULL;}
-			
-			
-			if (skb) {   
-				if(1)
-				{
-		 			//u8 *hdr_ptr = (u8 *)hdr;
-					hdr_ptr = pdata_tmp+16;
-					payload_ptr = hdr_ptr + hdr_len + custom_len;
-					//if( len > (hdr_len+custom_len) )
-					//复制 MAC 头
-					skb_put_data(skb, hdr_ptr, hdr_len);
-					//跳过自定义字段 + 复制 payload
-					skb_put_data(skb, payload_ptr, len- hdr_len - custom_len);
-					printk("cq:rx_interrupt remove succeed\n");
-				}
-				else {skb_put_data(skb,pdata_tmp+16,len);}
-		// if(content_ok){
-		// 	if (1)
-		// 	{
-		// 		hdr_len = ieee80211_hdrlen(hdr->frame_control);
-		// 		hdr_ptr = (u8 *)hdr;
-		// 		custom_hdr_ptr = hdr_ptr + hdr_len;
-
-		// 		//analyze Frame Control
-		// 		frame_ctrl =
-		// 			((u32)custom_hdr_ptr[0] << 24) |
-		// 			((u32)custom_hdr_ptr[1] << 16) |
-		// 			((u32)custom_hdr_ptr[2] <<  8) |
-		// 			((u32)custom_hdr_ptr[3] <<  0);
-
-		// 		//pick the relay_node_num field
-		// 		// path_nodes_num = (frame_ctrl >> 22) & 0x3F;
-		// 		path_nodes_num = 1;
-		// 		custom_len = 28 + path_nodes_num * 6;
-
-		// 		//allocate new skb
-		// 		skb = dev_alloc_skb(len - custom_len);
-		// 	}
-		// 	else{skb = dev_alloc_skb(len);}
-
-		// 	if (skb){
-		// 		if(1)
-		// 		{
-		// 			//copy MAC header
-		// 			skb_put_data(skb, hdr_ptr, hdr_len);
-
-		// 			//skip Network Wave header, copy payload
-		// 			payload_ptr = custom_hdr_ptr + custom_len;
-		// 			payload_len = len - hdr_len - custom_len;
-		// 			skb_put_data(skb, payload_ptr, payload_len);
-
-		// 			printk("cq:rx remove custom header succeed, custom_len=%u, nodes=%u\n",custom_len, path_nodes_num);
-		// 		}
-		// 		else
-		// 		{
-		// 			skb_put_data(skb, pdata_tmp + 16, len);
-		// 		}
-
-		// if (content_ok) {
-		// 	skb = dev_alloc_skb(len);
-		// 	if (skb) {
-		// 		skb_put_data(skb,pdata_tmp+16,len);
-
-		
+			skb = dev_alloc_skb(len);
+			if (skb) {
+				skb_put_data(skb,pdata_tmp+16,len);
 
 				rx_status.antenna = priv->runtime_rx_ant_cfg;
 				// def in ieee80211_rate openwifi_rates 0~11. 0~3 11b(1M~11M), 4~11 11a/g(6M~54M)
@@ -740,8 +631,6 @@ static irqreturn_t openwifi_tx_interrupt(int irq, void *dev_id)
 		blk_ack_bitmap = (tx_intf_api->TX_INTF_REG_PKT_INFO3_read() | ((u64)tx_intf_api->TX_INTF_REG_PKT_INFO4_read())<<32);
 
 		if (reg_val1!=0xFFFFFFFF) {
-			//add by chenqi
-			printk("cq: tx_interrupt:a new packet\n");
 			nof_retx = (reg_val1&0xF);
 			last_bd_rd_idx = ((reg_val1>>5)&(NUM_TX_BD-1));
 			prio = ((reg_val1>>17)&0x3);
@@ -840,30 +729,15 @@ static irqreturn_t openwifi_tx_interrupt(int irq, void *dev_id)
 				// do statistics for data packet that needs ack
 				hdr = (struct ieee80211_hdr *)skb->data;
 				addr1_low32  = *((u32*)(hdr->addr1+2));
-	// 			u16 fc = le16_to_cpu(hdr->frame_control);
-
-	// 			u8 type = (fc & IEEE80211_FCTL_FTYPE) >> 2;
-	// 			u8 subtype = (fc & IEEE80211_FCTL_STYPE) >> 4;
-
-
-	// 			printk("cq: MAC header first 4 bytes: %02x %02x %02x %02x\n",
-    //    			skb->data[0], skb->data[1], skb->data[2], skb->data[3]);
-	// 			printk("cq: fc_raw = 0x%04x\n", fc);
-	// 			printk("cq: type=%u subtype=%u\n", type, subtype);
-
-	// 			//add by chenqi
-	// 			printk("cq:stat_enable=%d pkt_need_ack=%d addr1_low32=%08x rx_target=%08x\n",
-    //    priv->stat.stat_enable, pkt_need_ack, addr1_low32, priv->stat.rx_target_sender_mac_addr);
 				if ( priv->stat.stat_enable && pkt_need_ack && (addr1_low32 == priv->stat.rx_target_sender_mac_addr || priv->stat.rx_target_sender_mac_addr==0) ) {
-					// printk("cq: start do statistics\n");					
 					use_ht_rate = (((info->control.rates[0].flags)&IEEE80211_TX_RC_MCS)!=0);
 					mcs_for_sysfs = ieee80211_get_tx_rate(dev, info)->hw_value;
 					if (use_ht_rate)
-						mcs_for_sysfs = (mcs_for_sysfs | 0x80000000);						
+						mcs_for_sysfs = (mcs_for_sysfs | 0x80000000);
+					
 					if ( ieee80211_is_data(hdr->frame_control) ) {
 						nof_retx_stat = (nof_retx<=5?nof_retx:5);
-						//add by chenqi
-						// printk("cq:data update data tx statistics\n");
+
 						priv->stat.tx_data_pkt_need_ack_num_total++;
 						priv->stat.tx_data_pkt_mcs_realtime = mcs_for_sysfs;
 						priv->stat.tx_data_pkt_need_ack_num_retx[nof_retx_stat]++;
@@ -1047,156 +921,6 @@ inline void report_pkt_loss_due_to_driver_drop(struct ieee80211_hw *dev, struct 
 	ieee80211_tx_status_irqsafe(dev, skb);
 }
 
-//add by chenqi
-// static struct sk_buff *insert_after_mac_hdr(struct sk_buff *skb,
-//                                 			u16 *len_mpdu,
-//                                             const u8 *custom_data,
-//                                             unsigned int custom_len)
-// {
-//     struct ieee80211_hdr *hdr = (struct ieee80211_hdr *)skb->data;
-//     unsigned int hdr_len = ieee80211_hdrlen(hdr->frame_control); // 获取MAC 头长度
-// 	//unsigned int hdr_len = skb->mac_len; 
-//     u8 *payload_ptr;
-
-//     // 扩展 skb 以放置自定义数据
-//     if (skb_tailroom(skb) < custom_len) {
-//         struct sk_buff *skb_new = skb_copy_expand(skb, skb_headroom(skb), skb_tailroom(skb) + custom_len, GFP_KERNEL);
-//         if (!skb_new) {
-//             printk("insert_after_mac_hdr: skb_copy_expand failed\n");
-//             return NULL;
-//         }
-//         if (skb->sk != NULL)
-//         skb_set_owner_w(skb_new, skb->sk);
-//         dev_kfree_skb(skb);
-//         skb = skb_new;
-// 		printk("cq:skb tailroom expand\n");
-// 	}
-
-//     // payload 指针定位到 MAC 头之后
-//     payload_ptr = skb->data + hdr_len;
-
-//     // 将原 payload 后移，为自定义数据腾出空间
-//     memmove(payload_ptr + custom_len, payload_ptr, *len_mpdu - hdr_len);
-
-//     // 拷贝自定义数据到 MAC 头之后
-//     memcpy(payload_ptr, custom_data, custom_len);
-
-// 	skb_put(skb,custom_len);
-
-// 	printk("cq:insert byte 0x%02x\n",skb->data[hdr_len]);
-
-//     // 更新 skb 长度和指针
-//     *len_mpdu = skb->len;
-
-// 	return skb;
-// }
-
-	//add by chenqi
-/*
-Byte	   4               6                 6                   6                   6               n*6
-	| Frame Control|Source Address|Destination Address|Transmitting Address|Receiving Address|Path Information|
-
-	|Frame Type|Relay Node Number|Packet Length|Reserved|                                     |Relay Node Address|*n                                 
-Bit       4              6             14          8													8*n
-*/
-u8 *build_custom_header(u8 frame_type, u8 relay_node_num,
-                        u16 pkt_len,     
-                        const u8 sa[6],  // Source Address
-                        const u8 da[6],  // Destination Address
-                        const u8 ta[6],  // Transmitting Address
-                        const u8 ra[6],  // Receiving Address
-                        const u8 *path_info, // n * 6 bytes     
-                        unsigned int *out_len)
-{
-    // calculate total length
-    unsigned int total_len =
-            4 +             // Frame Control 
-            6 + 6 + 6 + 6 + // SA + DA + TA + RA 
-            relay_node_num * 6; // Path Information
-
-    u8 *buf = kmalloc(total_len, GFP_KERNEL);
-    if (!buf)
-	{
-        printk("build_custom_header: buf allocate failed\n");
-        return NULL;
-    }
-
-
-    u8 *p = buf;
-
-    // combine Frame Control ----
-    u32 frame_ctrl = 0;
-    frame_ctrl |= ((u32)(frame_type & 0x0F)) << 28;
-    frame_ctrl |= ((u32)(relay_node_num & 0x3F)) << 22;
-    frame_ctrl |= ((u32)(pkt_len & 0x3FFF)) << 8;
-    frame_ctrl |= 0x4E; //Reserved temporarily "N"
-
-    //copy Frame Control
-    p[0] = (frame_ctrl >> 24) & 0xFF;
-    p[1] = (frame_ctrl >> 16) & 0xFF;
-    p[2] = (frame_ctrl >>  8) & 0xFF;
-    p[3] = (frame_ctrl >>  0) & 0xFF;
-    p += 4;
-
-    //copy MAC Address
-    memcpy(p, sa, 6); p += 6;
-    memcpy(p, da, 6); p += 6;
-    memcpy(p, ta, 6); p += 6;
-    memcpy(p, ra, 6); p += 6;
-
-    // copy Path Information
-    if (relay_node_num > 0 && path_info)
-	{
-        memcpy(p, path_info, relay_node_num * 6);
-		p += relay_node_num * 6;
-	}
-    // output length
-    *out_len = total_len;
-
-    return buf;
-}
-
-static struct sk_buff *insert_after_mac_hdr(struct sk_buff *skb,
-                                			u16 *len_mpdu,
-                                            const u8 *custom_data,
-											unsigned int custom_len)
-{
-    struct ieee80211_hdr *hdr = (struct ieee80211_hdr *)skb->data;
-    unsigned int hdr_len = ieee80211_hdrlen(hdr->frame_control); // 获取MAC 头长度
-	//unsigned int hdr_len = skb->mac_len; 
-    u8 *payload_ptr;
-    // 扩展 skb 以放置自定义数据
-    if (skb_tailroom(skb) < custom_len) {
-        struct sk_buff *skb_new = skb_copy_expand(skb, skb_headroom(skb), skb_tailroom(skb) + custom_len, GFP_KERNEL);
-        if (!skb_new) {
-            printk("insert_after_mac_hdr: skb_copy_expand failed\n");
-            return NULL;
-        }
-        if (skb->sk != NULL)
-        skb_set_owner_w(skb_new, skb->sk);
-        dev_kfree_skb(skb);
-        skb = skb_new;
-		printk("cq:skb tailroom expand\n");
-	}
-
-    // payload 指针定位到 MAC 头之后
-    payload_ptr = skb->data + hdr_len;
-
-    // 将原 payload 后移，为自定义数据腾出空间
-    memmove(payload_ptr + custom_len, payload_ptr, *len_mpdu - hdr_len);
-
-    // 拷贝自定义数据到 MAC 头之后
-    memcpy(payload_ptr, custom_data, custom_len);
-
-	skb_put(skb,custom_len);
-
-	//printk("cq:insert byte 0x%02x\n",skb->data[hdr_len]);
-
-    *len_mpdu = skb->len;
-
-	return skb;
-}
-
 static void openwifi_tx(struct ieee80211_hw *dev,
 		       struct ieee80211_tx_control *control,
 		       struct sk_buff *skb)
@@ -1218,16 +942,6 @@ static void openwifi_tx(struct ieee80211_hw *dev,
 	__le16 frame_control,duration_id;
 	u32 dma_fifo_no_room_flag, hw_queue_len, delay_count=0;
 	enum dma_status status;
-	unsigned int custom_len;
-	u8 *custom_data;
-	u8 SA[6] = {0xAA, 0xBB, 0xCC, 0x01, 0x01, 0x01};
-	u8 DA[6] = {0xAA, 0xBB, 0xCC, 0x02, 0x02, 0x02};
-	u8 TA[6] = {0xAA, 0xBB, 0xCC, 0x03, 0x03, 0x03};
-	u8 RA[6] = {0x11, 0x22, 0x33, 0x44, 0x55, 0x66};
-	u8 path_info[12] = {0xAA, 0xBB, 0xCC, 0x01, 0x01, 0x01,0xAA, 0xBB, 0xCC, 0x02, 0x02, 0x02};
-
-	custom_data = build_custom_header(0,2,1500,SA,DA,TA,RA,path_info,&custom_len);
-	printk("cq:call tx function\n");
 
 	static u32 addr1_low32_prev = -1;
 	static u16 rate_hw_value_prev = -1;
@@ -1256,23 +970,6 @@ static void openwifi_tx(struct ieee80211_hw *dev,
 	}
 
 	len_mpdu = skb->len;
-	printk("cq:len_mpdu= %d\n",len_mpdu);
-
-	//add by chenqi
-	if(1)
-	{
-		skb = insert_after_mac_hdr(skb,&len_mpdu,custom_data,custom_len);
-		kfree(custom_data);
-		if (!skb) {
-			printk("cq:insert failed\n");
-			goto openwifi_tx_early_out;
-		}
-		// skb may have been reallocated by skb_copy_expand, re-fetch hdr pointer
-		hdr = (struct ieee80211_hdr *)skb->data;
-		printk("cq:insert succeed\n");
-	}
-
-	printk("cq:len_mpdu changed to = %d\n",len_mpdu);
 
 	// get Linux priority/queue setting info and target mac address
 	prio = skb_get_queue_mapping(skb);
@@ -1704,8 +1401,6 @@ static void openwifi_tx(struct ieee80211_hw *dev,
 		priv->stat.tx_prio_num[prio]++;
 		priv->stat.tx_queue_num[queue_idx]++;
 	}
-	//add by chenqi
-	printk("cq:tx come to an end\n");	
 
 	return;
 
