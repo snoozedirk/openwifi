@@ -55,7 +55,7 @@ read_one() {
 #==============================================================================
 
 echo "# addr  MAC" > "$OUTPUT"
-echo "# $(date)"   >> "$OUTPUT"
+#echo "# $(date)"   >> "$OUTPUT"
 echo "Scanning all 128 MAC slots, saving to $OUTPUT ..." >&2
 
 for addr in $(seq 0 127); do
