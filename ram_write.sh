@@ -33,7 +33,7 @@ write_one() {
     local addr=$1 data=$2
     local cmd_raw reg30 ack_valid ack_addr
     local hi16 lo32
-
+#不换行，等待写入完成后再输出 OK
     echo -n "  [WRITE] addr=$addr data=$data ... "
 
 
@@ -64,12 +64,49 @@ write_one() {
     fi
 
     set_reg 18 0   # NOP
+    #此处输出 OK 后换行
     echo "OK"
 }
+
+write_none() {
+    local cmd_raw reg30 ack_valid ack_addr
+    local hi16 lo32
+    for i in $(seq 0 127); do
+        set_reg 19 0
+        cmd_raw=$(( 1 << 30 | i << 22 | 0 << 6 ))
+        set_reg 18 $cmd_raw
+
+        for j in $(seq 1 500); do
+            reg30=$(get_reg 30)
+            [ -z "$reg30" ] && { sleep 0.001; continue; }
+            reg30=$(( 0x$reg30 ))   #turn hex (string) to (decimal) number
+            ack_valid=$(( (reg30 >> 8) & 1 ))
+            ack_addr=$((   reg30   & 0xFF ))
+
+            [ "$ack_valid" = "1" ] && [ "$ack_addr" = "$i" ] && break
+            sleep 0.001
+        done
+
+        if [ "$ack_valid" != "1" ] || [ "$ack_addr" != "$i" ]; then
+            echo "FAIL (ack_valid=$ack_valid ack_addr=$ack_addr expected=$i)"
+            return 1
+        fi
+
+        set_reg 18 0   # NOP
+        if [ $((i % 8)) -eq 7 ]; then
+            echo -n "#"
+        fi
+    done
+    
+}
+    
 #==============================================================================
 # 主流程
 #==============================================================================
-
+echo "=== 清空所有地址数据 ==="
+write_none || exit 1
+#为了美观，换行|
+echo ""
 echo "=== 写入地址 ==="
 for i in $(seq 0 $((${#ADDR[@]} - 1))); do
     write_one ${ADDR[$i]} ${DATA[$i]} || exit 1

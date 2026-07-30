@@ -54,12 +54,13 @@ read_one() {
 
 #==============================================================================
 
-echo "# addr  MAC" > "$OUTPUT"
-#echo "# $(date)"   >> "$OUTPUT"
-echo "Scanning all 128 MAC slots, saving to $OUTPUT ..." >&2
-
+echo "=== 读取地址 ===" >&2
 for addr in $(seq 0 127); do
-    read_one $addr >> "$OUTPUT"
-done
-
-echo "Done. $(grep -cv '^#' "$OUTPUT") data saved to $OUTPUT" >&2
+    read_one $addr
+    if [ $((addr % 8)) -eq 7 ]; then
+        echo -n "#" >&2
+    fi
+done > "$OUTPUT"
+echo "" >&2
+echo "=== 完成 ===" >&2
+echo "$(grep -cv '^#' "$OUTPUT") data saved to $OUTPUT" >&2
